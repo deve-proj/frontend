@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bungee&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Jura:wght@300..700&display=swap');
+
+.previewText{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p{
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+        align-self: center;
+        animation: fadeIn 1s ease-in forwards;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: "Jura", sans-serif;
+
+        img{
+
+            width: 195px;
+            height: 195px;
+
+        }
+    }
+
+}
+
+.main{
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+}
+
+@keyframes fadeIn {
+    
+    from { opacity: 0; }
+    to { opacity: 1; }
+
+}

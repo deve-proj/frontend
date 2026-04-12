@@ -10,8 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@DEVE-proj/deve_sdk": "^1.0.2",
+    "@types/axios": "^0.9.36",
     "@types/jest": "^30.0.0",
+    "@types/phoenix": "^1.6.7",
+    "axios": "^1.13.6",
     "jest": "^30.2.0",
+    "phoenix": "^1.8.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "sass": "^1.97.3",
