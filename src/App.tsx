@@ -1,33 +1,15 @@
-import { useEffect } from "react"
-import AuthScreen from "./screens/auth/auth.screen"
-import { Api } from '../api/api'
-import { ChatForm } from "./components/chat/chatForm"
 import { Chat } from "./screens/chat/chat"
+import { NewChatFormContext, NewChatFormProvider } from "../core/providers/newChatForm.provider"
+import { useContext } from "react"
+import { NewChatForm } from "./components/newChatForm/newChatForm"
 
 function App() {
-
-    // useEffect(() => {
-        
-    //     (async () => {
-
-    //         try
-    //         {
-    //             let api = new Api.UserApi()
-    //             let result = await api.CreateUser()
-    //             console.log("Результат:", result.data.token)
-
-    //         }
-    //         catch (error)
-    //         {
-    //             console.error("Ошибка:", error)
-    //         }
-    //     })();
-
-    // }, [])
-
+    
     return(
 
-        <Chat roomName="main"/>
+        <div style={{display: "flex", width: "100%", height: "100%", position: "relative"}}>
+            <Chat/>
+        </div>
 
     )
 }

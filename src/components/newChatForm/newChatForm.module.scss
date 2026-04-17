@@ -1,0 +1,40 @@
+.main{
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    position: absolute;
+    z-index: 200;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    top: 50%;
+    left: 50%;
+
+    input{
+        height: 30px;
+        width: 80%;
+        outline: none;
+        margin: 0;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    
+    button{
+        width: 80%;
+        height: 50px;
+        background-color: rgb(20, 198, 20);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}

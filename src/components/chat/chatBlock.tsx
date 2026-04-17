@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
-import styles from './chatForm.module.scss'
+import styles from './chatBlock.module.scss'
 import { useChat } from '../../hooks/chat.hook'
 import { Api } from '../../../api/api'
 
-export const ChatForm = ({roomId} : {roomId : string}) => {
+export const ChatBlock = ({roomId} : {roomId : string}) => {
 
     const { messages: wsMessages, sendMessage } = useChat(roomId)
     const [messages, setMessages] = useState([])
@@ -32,6 +32,8 @@ export const ChatForm = ({roomId} : {roomId : string}) => {
             })()
         }
 
+        return () => setMessages([])
+
     }, [roomId])
 
     useEffect(() => {
@@ -55,7 +57,7 @@ export const ChatForm = ({roomId} : {roomId : string}) => {
 
                 <div className={styles.content}>
                     <header className={styles.header}>
-
+                        <img src="settings.svg"/>
                     </header>
                     <ul className={styles.messageArea}>
                         {
@@ -70,19 +72,18 @@ export const ChatForm = ({roomId} : {roomId : string}) => {
                         }
                         <div ref={messagesEndRef}></div>
                     </ul>
-                    <input className={styles.inputArea} onChange={e => setInput(e.target.value)} value={input} onKeyDown={(e) => {
-
-                        if(e.key == 'Enter')
-                        {
-                            e.preventDefault();
-                            handleSend();
-                        }
-
-                    }}>
-
-                    </input>
+                    <div className={styles.inputContainer}>
+                        <input className={styles.inputArea} onChange={e => setInput(e.target.value)} value={input} onKeyDown={(e) => {
+                            if(e.key == 'Enter')
+                            {
+                                e.preventDefault();
+                                handleSend();
+                            }
+                        }}>
+                        </input>
+                        <img src="send.svg" onClick={handleSend}/>
+                    </div>
                 </div>
-
             }
         </div>
 

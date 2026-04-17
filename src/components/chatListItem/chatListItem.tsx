@@ -6,7 +6,7 @@ export type ChatListItemProps = {
     chatName : string
     chatId : string
     lastMessage? : string
-    logoUrl : string
+    logoUrl? : string
     isFocus? : boolean
     setFocusCallback? : Dispatch<SetStateAction<string>>
 
@@ -14,12 +14,13 @@ export type ChatListItemProps = {
 
 export const ChatListItem = (props : ChatListItemProps) => {
 
-    console.log(props.isFocus)
+    console.log(props.logoUrl)
 
     return(
 
         <li className={`${styles.main} ${props.isFocus ? styles.focused : ""}`} onClick={() => props.setFocusCallback(props.chatId)}>
-            <p>{props.chatName}</p>
+            <img src={props.logoUrl}/>
+            <p className={styles.chatName}>{props.chatName}</p>
         </li>
 
     )
