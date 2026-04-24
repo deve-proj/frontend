@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Socket } from 'phoenix';
 
-export function useChat(room_id: string)
+export function useChat(roomId: string)
 {
 
     const [messages, setMessages] = useState<any[]>([]);
@@ -15,7 +15,7 @@ export function useChat(room_id: string)
         {
             if(!channelRef.current || !isJoinedRef.current)
             {
-                const ch = socketRef.current.channel(`room:${room_id}`, {user_id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", user_name: "mark"});
+                const ch = socketRef.current.channel(`room:${roomId}`, {user_id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", user_name: "mark"});
 
                 setupChannel(ch)
             }
@@ -27,7 +27,7 @@ export function useChat(room_id: string)
         socket.connect();
         socketRef.current = socket
 
-        const ch = socketRef.current.channel(`room:${room_id}`, {user_id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", user_name: "mark"});
+        const ch = socketRef.current.channel(`room:${roomId}`, {user_id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", user_name: "mark"});
 
         setupChannel(ch)
 
@@ -37,7 +37,7 @@ export function useChat(room_id: string)
 
         ch.join()
             .receive('ok', () => {
-                console.log('Joined room', room_id)
+                console.log('Joined room', roomId)
                 isJoinedRef.current = true
             })
             .receive('error', (err) => console.error('Join failed', err));
@@ -58,7 +58,7 @@ export function useChat(room_id: string)
 
     useEffect(() => {
 
-        if(room_id)
+        if(roomId)
         {
             connect();
 
@@ -70,7 +70,7 @@ export function useChat(room_id: string)
                     channelRef.current = null
                 }
 
-                if(channelRef.current)
+                if(socketRef.current)
                 {
                     socketRef.current.disconnect();
                     socketRef.current = null
@@ -81,7 +81,7 @@ export function useChat(room_id: string)
             };
         }
 
-    }, [room_id]);
+    }, [roomId]);
 
     const sendMessage = (body: string) => {
 

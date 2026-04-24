@@ -38,7 +38,7 @@ export const Chat = () => {
                         chatName: e.name,
                         chatId: e.id,
                         logoUrl: e.logo_url,
-                        lastMessage: e.lastMessage
+                        lastMessage: e.last_message
                     })))
                     
                 else
@@ -66,7 +66,7 @@ export const Chat = () => {
                     maxHeight={"100%"}
                     enable={{
                         top: false,
-                        right: true,      // только правый край
+                        right: true,
                         bottom: false,
                         left: false,
                         topRight: false,
@@ -86,7 +86,7 @@ export const Chat = () => {
                         <img src='plus.svg' onClick={openModal} className={styles.plus}/>
                     </ul>
                 </Resizable>
-                <ChatBlock roomId={currentChat} key={currentChat}/>
+                <ChatBlock roomId={currentChat} key={currentChat} closeChatCallback={() => setCurrentChat("")}/>
             </div>
         </ScreenLayout>
 

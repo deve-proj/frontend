@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, type Dispatch, type SetStateAction } from 'react'
 import styles from './chatBlock.module.scss'
 import { useChat } from '../../hooks/chat.hook'
 import { Api } from '../../../api/api'
 
-export const ChatBlock = ({roomId} : {roomId : string}) => {
+export const ChatBlock = ({roomId, closeChatCallback} : {roomId : string, closeChatCallback : () => any}) => {
 
     const { messages: wsMessages, sendMessage } = useChat(roomId)
     const [messages, setMessages] = useState([])
@@ -30,9 +30,24 @@ export const ChatBlock = ({roomId} : {roomId : string}) => {
                 setMessages(await Api.ChatApi.getMessagesByRoomId(roomId))
 
             })()
+
         }
 
-        return () => setMessages([])
+        const handleEsc = (e : KeyboardEvent) => {
+
+            if(e.key == "Escape")
+            {
+                closeChatCallback()
+            }
+
+        }
+
+        window.addEventListener('keydown', handleEsc)
+
+        return () => {
+            setMessages([])
+            window.removeEventListener('keydown', handleEsc)
+        }
 
     }, [roomId])
 
@@ -53,7 +68,7 @@ export const ChatBlock = ({roomId} : {roomId : string}) => {
     return(
 
         <div className={styles.main}>
-            {roomId && 
+            {roomId ? 
 
                 <div className={styles.content}>
                     <header className={styles.header}>
@@ -63,8 +78,9 @@ export const ChatBlock = ({roomId} : {roomId : string}) => {
                         {
                             allMessages.map((message, index) => (
                                 <li className={`${styles.messageBlock} ${message.user_id == localStorage.getItem("user_id") ? styles.myMessageBlock : styles.otherMessageBlock}`} key={index}>
-                                    <div className={styles.avatar}/>
+                                    <img className={styles.avatar} src={`http://localhost:9000/users/${message.user_id}/avatar/avatar.png`}/>
                                     <div className={styles.message}>
+                                        <p>{message.user_name}</p>
                                         <p>{message.body}</p>
                                     </div>
                                 </li>
@@ -83,6 +99,12 @@ export const ChatBlock = ({roomId} : {roomId : string}) => {
                         </input>
                         <img src="send.svg" onClick={handleSend}/>
                     </div>
+                </div>
+
+                :
+                
+                <div className={styles.noChatSelected}>
+                    <p>Выберите, кому вы хотели бы написать...</p>
                 </div>
             }
         </div>
