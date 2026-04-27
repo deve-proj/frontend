@@ -3,7 +3,7 @@ import * as deve from '@DEVE-proj/deve_sdk'
 import type { ChatListItemProps } from "../src/components/chatListItem/chatListItem";
 import type { INewChatData } from "../src/components/newChatForm/newChatForm";
 import type { PostProps } from "../src/components/postItem/postItem";
-
+import userApiClient from './user.api.client'
 export namespace Api
 {
     export class UserApi
@@ -38,6 +38,24 @@ export namespace Api
             catch(e)
             {
                 console.log(e)
+            }
+        }
+
+        async CheckAuth()
+        {
+            try
+            {
+                console.log("Пытаемся войти...")
+
+                const result = await userApiClient.post("http://localhost:5263/user/check_auth");
+
+                console.log("Result: " + result)
+
+                return result
+            }
+            catch(e)
+            {
+                throw new Error(e)
             }
         }
 
